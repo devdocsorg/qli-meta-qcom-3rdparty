@@ -1,44 +1,42 @@
 # Getting started
 
-## Objectives
+> **Type:** Tutorial
+> **Orientation:** learning
+> **Serves:** action + study
+> **Audience assumption:** beginner with no prior familiarity
 
-Build a `wrynose` image that includes this layer for a third-party Qualcomm board.
+In this tutorial, we will add `meta-qcom-3rdparty` on branch `wrynose` to a Yocto workspace and start a kas build for the Arduino UNO Q machine.
 
-## Prerequisites
+## What we will do
 
-- A Yocto Project 6.0 (`wrynose`) workspace
+We will confirm the two sibling layers, add this layer after `meta-qcom`, pick the `uno-q` machine, and run the kas one-liner from this repo.
+
+## Start here
+
+We need a Yocto Project 6.0 (`wrynose`) workspace with:
+
 - `openembedded-core` (`meta`) on `wrynose`
 - `meta-qcom` on `wrynose`
-- [kas](https://kas.readthedocs.io/) if you want the CI-style one-liner
+- [kas](https://kas.readthedocs.io/)
 
-## Concept map
+Open a terminal in the workspace root.
 
-The layer is a BitBake collection. `BBPATH` and `BBFILES` pick up `recipes-*/*/*.bb` and `.bbappend`. Machines in `conf/machine` select kernels, firmware, and device trees.
-
-## Procedure
+## Steps
 
 1. Add `meta-qcom-3rdparty` to `bblayers.conf` after `meta-qcom`.
-2. Confirm `conf/layer.conf` lists `LAYERSERIES_COMPAT_qcom-3rdparty = "wrynose"`.
-3. Choose a machine from `conf/machine`, for example `uno-q` (Arduino UNO Q).
-4. Build with kas from this repo:
+2. Open `conf/layer.conf` in this layer. You will notice `LAYERSERIES_COMPAT_qcom-3rdparty = "wrynose"`.
+3. Open `conf/machine/uno-q.conf`. You will notice `KERNEL_DEVICETREE` and `MACHINE_FEATURES` for the Arduino UNO Q.
+4. Run:
 
 ```bash
-kas build meta-qcom-3rdparty/ci/<machine.yml>
+kas build meta-qcom-3rdparty/ci/uno-q.yml
 ```
 
-Example CI files in this repo: `ci/uno-q.yml`, `ci/radxa-dragon-q6a.yml`.
+5. The output should look like a kas/BitBake build starting for machine `uno-q`. If kas cannot find the YAML file, we are not at the workspace root that contains this layer.
 
-## Practice
+## What we accomplished
 
-Open `conf/machine/uno-q.conf` and list `MACHINE_FEATURES` and `KERNEL_DEVICETREE`. Those values must match the board you flash.
-
-## Check understanding
-
-You can name the two required sibling layers (`openembedded-core` and `meta-qcom`) and one machine config path under `conf/machine`.
-
-## Next steps
-
-Read the concept page for branch policy, then the reference page for machine variables.
+We attached a third-party Qualcomm BSP layer on the Qualcomm Linux 2.x (`wrynose`) line and kicked off the UNO Q image build. *(see How-to: How to add this layer)* *(see Reference: layer and machine values)* *(see Explanation: About third-party boards)*
 
 ## Provenance
 
