@@ -1,10 +1,13 @@
-# Reference
+# Layer and machine values
 
-## Overview
-
-This page lists values taken from the layer and the Arduino UNO Q machine file. It is a lookup page, not a procedure.
+> **Type:** Reference
+> **Orientation:** information
+> **Serves:** cognition + work
+> **Audience assumption:** practitioner consulting facts
 
 ## Interface
+
+Values from `conf/layer.conf`.
 
 | Item | Value |
 | --- | --- |
@@ -17,7 +20,7 @@ This page lists values taken from the layer and the Arduino UNO Q machine file. 
 
 ## Parameters
 
-From `conf/machine/uno-q.conf` (Arduino UNO Q):
+From `conf/machine/uno-q.conf` (Arduino UNO Q). Include: `conf/machine/include/qcom-qcm2290.inc`.
 
 | Variable | Value in source |
 | --- | --- |
@@ -32,19 +35,25 @@ From `conf/machine/uno-q.conf` (Arduino UNO Q):
 | `QCOM_BOOT_FILES_SUBDIR` | `qrb2210-arduino-imola` |
 | `QCOM_PARTITION_FILES_SUBDIR` | `partitions/qrb2210-unoq/emmc-16GB` |
 
-Include: `conf/machine/include/qcom-qcm2290.inc`.
+## Behavior
+
+`BBPATH` and `BBFILES` pick up `recipes-*/*/*.bb` and `.bbappend` under this layer. `LAYERSERIES_COMPAT_qcom-3rdparty` is `wrynose`.
 
 ## Errors
 
-The `uno-q` machine adds `qbootctl` so Android bootloader marks the boot successful. The comment in source says the firmware switches to slot B and fails to boot otherwise.
+The `uno-q` machine adds `qbootctl` so the Android bootloader marks the boot successful. Source notes that firmware otherwise switches to slot B and fails to boot.
 
 ## Examples
 
-Kas one-liner from `docs/index.md`:
+Kas invocation recorded in `docs/index.md`:
 
 ```bash
 kas build meta-qcom-3rdparty/ci/<machine.yml>
 ```
+
+Machine YAML files in this repo include `ci/uno-q.yml` and `ci/radxa-dragon-q6a.yml`.
+
+*(see How-to: How to add this layer)*
 
 ## Provenance
 
